@@ -9,4 +9,7 @@ set -e
 #   git clone https://github.com/terraref/tutorials.git ~/work/tutorials
 #fi 
 
+
+source activate python2
+
 . /usr/local/bin/start.sh jupyter notebook $*
