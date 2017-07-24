@@ -9,6 +9,7 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/*
 
 USER $NB_USER
+ENV USER $NB_USER
 COPY start-notebook.sh /usr/local/bin/
 
 CMD ["start-notebook.sh", "--NotebookApp.token=''"]
