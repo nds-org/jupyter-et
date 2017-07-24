@@ -10,6 +10,4 @@ set -e
 #fi 
 
 
-source activate python2
-
 . /usr/local/bin/start.sh jupyter notebook $*
