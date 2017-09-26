@@ -7,7 +7,7 @@ RUN echo "deb http://ftp.uk.debian.org/debian jessie-backports main" >> /etc/apt
     apt-get -qq install sqlite3 libopencv-dev python-matplotlib && \
     apt-get -qq install build-essential mpich2? python libmpich2?-dev gfortran git subversion curl gnuplot gnuplot-x11 time && \
     apt-get -qq install libnuma-dev numactl hwloc libhwloc-dev libssl-dev hdf5-tools libhdf5-dev gdb gsl-bin libgsl0-dev ffmpeg autotools-dev&& \
-    apt-get -qq install libgsl-dev libopenblas-dev libpapi-dev &&\
+    apt-get -qq install libgsl-dev libopenblas-dev libpapi-dev fftw3-dev &&\
     apt-get -qq clean all && \
     apt-get -qq autoclean && \
     apt-get -qq autoremove && \
