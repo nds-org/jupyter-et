@@ -16,5 +16,6 @@ RUN echo "deb http://ftp.uk.debian.org/debian jessie-backports main" >> /etc/apt
 USER $NB_USER
 ENV USER $NB_USER
 COPY start-notebook.sh /usr/local/bin/
+COPY CactusTutorial.ipynb /tutorial/
 
 CMD ["start-notebook.sh", "--NotebookApp.token=''"]

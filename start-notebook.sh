@@ -16,4 +16,10 @@ if [ ! -f "$BASHRC_PATH" ]; then
     echo "alias python='python2'" >> $BASHRC_PATH
 fi
 
+# Copy the tutorial notebook if it doesn't exist
+if [ ! -f "$HOME/work/CactusTutorial.ipynb" ]; then
+    mkdir -p $HOME/work/
+    cp /tutorial/CactusTutorial.ipynb $HOME/work/
+fi
+
 . /usr/local/bin/start.sh jupyter notebook $*
