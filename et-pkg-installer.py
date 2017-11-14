@@ -6,7 +6,7 @@ import sys
 
 def get_pkg_cmd():
     for p in os.environ["PATH"].split(os.pathsep):
-        for cmd in ["apt-get","dnf","yum","zypper"]:
+        for cmd in ["apt-get","brew","dnf","yum","zypper"]:
             f = p+os.sep+cmd
             if os.path.exists(f):
                 return cmd
@@ -43,6 +43,34 @@ debk = {
     "xargs":None,
     "jpeg":"libjpeg-turbo?-dev",
     "libtool":None
+    }
+
+homebrewk = {
+    "gfortran":None,
+    "gcc":"gcc",
+    "g++":None,
+    "papi":None,
+    "gsl":"gsl",
+    "lapack":None,
+    "hdf5":"hdf5 --with-fortran",
+    "mpi": "open-mpimpi",
+    "pkg-config":"pkg-config",
+# I think new OS (Sierra) have a new enough svn
+    "subversion":"subversion",
+    "git":None,
+    "python":None,
+    "patch":None,
+    "make":None,
+    "numa":None,
+    "hwloc":"hwloc",
+    "ssl":"openssl",
+    "fftw":"fftw",
+    "curl":None,
+    "which":None,
+    "xargs":None,
+    "jpeg":"jpeg",
+    "libtool":None
+# szip is missing from the list
     }
 
 redk = {
@@ -110,8 +138,10 @@ def check(h1,h2):
     for k in h2:
         assert k in h1, k
 
+# TODO: do not hard-code these
 check(debk,redk)
 check(redk,susek)
+check(susek,homebrewk)
 
 install_cache = {}
 
@@ -130,6 +160,13 @@ def installed1(cmd):
         if cmd in install_cache:
             return install_cache[cmd]
         ex = (os.system("dpkg -s "+cmd) == 0)
+        install_cache[cmd] = ex
+        if ex:
+            return {"installed":1,"missing":[]}
+    if pkg_cmd == "brew":
+        if cmd in install_cache:
+            return install_cache[cmd]
+        ex = (os.system("brew list "+cmd) == 0)
         install_cache[cmd] = ex
         if ex:
             return {"installed":1,"missing":[]}
@@ -166,6 +203,8 @@ def installed(cmd):
 pkgs = None
 if pkg_cmd == "apt-get":
     pkgs = debk
+elif pkg_cmd == "brew":
+    pkgs = homebrewk
 elif pkg_cmd == "dnf" or pkg_cmd == "yum":
     pkgs = redk
 elif pkg_cmd == "zypper":
@@ -240,6 +279,7 @@ if __name__ == "__main__":
            fd.write("<td>"+gets("dnf",redk[k])+"</td>")
            fd.write("<td>"+gets("yum",redk[k])+"</td>")
            fd.write("<td>"+gets("zypper",susek[k])+"</td>")
+           fd.write("<td>"+gets("brew",homebrewk[k])+"</td>")
            fd.write("</tr>\n")
         fd.write("</table>\n")
         fd.close()
