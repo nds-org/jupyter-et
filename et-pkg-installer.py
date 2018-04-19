@@ -14,6 +14,25 @@ pkg_cmd = get_pkg_cmd()
 if pkg_cmd == None:
     raise Exception("Could not idenfity operating system")
 
+# the next couple of dicts describe the required packages to compile the ET.
+# Each entry uses a human-readable key for the softwre and then either a single
+# string for the required packages or a list of strings or lists of acceptable
+# sets of alternative packages.
+# For example:
+# "hdf5":"libhdf5-dev" means that the capability "hdf5" is provided by the
+# package "libhdf5-dev".
+# "mpi":[ "openmpi-devel", "mpich-devel", "mpich2-devel"] means that any of the
+# packages "openmpi-devel", "mpich-devel" or "mpich2-devel" can be used to
+# satisfy the "mpi" requirement.
+# Finally:
+# "mpi":[
+#     ["libopenmpi-dev","libhdf5-openmpi-dev"],
+#     ["libmpich-dev","libhdf5-mpich-dev"],
+#     ["libmpich2-dev","libhdf5-mpich2-dev"]],
+# states that any of the mpi+hdf5 pairs are acceptable to satisfy the MPI
+# requirement. libhdf5 devel files appear b/c HDF5 optionally depends on MPI
+# and can use the MPI version.
+
 debk = {
     "gfortran":"gfortran",
     "gcc":"gcc",
