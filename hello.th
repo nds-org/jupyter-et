@@ -1,0 +1,47 @@
+# Component list for the Einstein Toolkit <http://einsteintoolkit.org/>
+# $Revision$
+# $Date$
+# $HeadURL$
+
+!CRL_VERSION = 1.0
+
+!DEFINE ROOT = Cactus
+!DEFINE ARR  = $ROOT/arrangements
+!DEFINE COMPONENTLIST_TARGET = $ROOT/thornlists/
+
+!DEFINE ET_RELEASE = ET_2018_02
+
+
+# Cactus Flesh
+!TARGET   = $ROOT
+!TYPE     = git
+!URL      = https://bitbucket.org/cactuscode/cactus.git
+!NAME     = flesh
+!REPO_BRANCH = $ET_RELEASE
+!CHECKOUT = .clang-format CONTRIBUTORS COPYRIGHT doc lib Makefile src
+
+# Simulation Factory
+!TARGET   = $ROOT
+!TYPE     = git
+!URL      = https://bitbucket.org/simfactory/simfactory2.git
+!REPO_PATH=$1
+!NAME     = simfactory2
+!REPO_BRANCH = $ET_RELEASE
+!CHECKOUT = ./simfactory
+
+# The GetComponents script
+!TARGET   = $ROOT/bin
+!TYPE     = git
+!URL      = https://github.com/gridaphobe/CRL.git
+!REPO_BRANCH = $ET_RELEASE
+!CHECKOUT = GetComponents
+
+
+# CactusExamples thorns
+!TARGET   = $ARR
+!TYPE     = git
+!URL      = https://bitbucket.org/rhaas80/cactusexamples.git
+!REPO_PATH= $2
+!REPO_BRANCH = $ET_RELEASE
+!CHECKOUT = 
+CactusExamples/HelloWorld
