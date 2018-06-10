@@ -19,8 +19,11 @@ COPY CactusTutorial.ipynb /tutorial/
 COPY hello.th qc0-mclachlan.th install_ET.sh /tutorial/
 RUN bash /tutorial/install_ET.sh
 USER root
-RUN mv /home/$NB_USER/Cactus.tar /tutorials/
+RUN mv /home/$NB_USER/Cactus.tar /tutorial/
 USER $NB_USER
 
+COPY EinsteinToolkit.ipynb /tutorial/
+COPY start-einstein.sh /tutorial/
 
-CMD ["start-notebook.sh", "--NotebookApp.token=''"]
+
+CMD ["start-einstein.sh", "--NotebookApp.token=''"]
