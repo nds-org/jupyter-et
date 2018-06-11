@@ -24,6 +24,7 @@ USER $NB_USER
 
 COPY EinsteinToolkit.ipynb /tutorial/
 COPY start-einstein.sh /tutorial/
+COPY qc0.tar.gz pyGWAnalysis.tar.gz /tutorial/
 
 
 CMD ["start-einstein.sh", "--NotebookApp.token=''"]

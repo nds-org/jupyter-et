@@ -26,4 +26,13 @@ if [ ! -f "$HOME/EinsteinToolkit.ipynb" ]; then
     wget --quiet http://141.142.41.4/EinsteinToolkit.ipynb -O $HOME/EinsteinToolkit.ipynb || true
 fi
 
+if [ ! -d "$HOME/simulations/qc0-mclachlan" ] ; then
+    mkdir $HOME/simulations
+    tar -xzf /tutorial/qc0.tar.gz -C $HOME/simulations
+fi
+
+if [ ! -d "$HOME/pyGWAnalysis" ] ; then
+    tar -xzf /tutorial/pyGWAnalysis.tar.gz -C $HOME
+fi
+
 . /usr/local/bin/start.sh jupyter notebook $*
