@@ -26,6 +26,10 @@ if [ ! -f "$HOME/EinsteinToolkit.ipynb" ]; then
     wget --quiet http://141.142.41.4/EinsteinToolkit.ipynb -O $HOME/EinsteinToolkit.ipynb || true
 fi
 
+if [ ! -d "$HOME/fig" ] ; then
+    tar -xzf /tutorial/fig.tar.gz -C $HOME
+fi
+
 if [ ! -d "$HOME/simulations/qc0-mclachlan" ] ; then
     mkdir $HOME/simulations
     tar -xzf /tutorial/qc0.tar.gz -C $HOME/simulations
