@@ -35,4 +35,8 @@ if [ ! -d "$HOME/pyGWAnalysis" ] ; then
     tar -xzf /tutorial/pyGWAnalysis.tar.gz -C $HOME
 fi
 
+if [ ! -d "$HOME/POWER" ] ; then
+    tar -xzf /tutorial/POWER.tar.gz -C $HOME
+fi
+
 . /usr/local/bin/start.sh jupyter notebook $*
