@@ -57,6 +57,9 @@ debk = {
     "fftw":"libfftw3-dev",
     "curl":"curl",
     "which":None,
+    "rsync":"rsync",
+    "tar":None,
+    "hostname":None,
     "xargs":None,
     "jpeg":"libjpeg-turbo?-dev",
     "libtool":None
@@ -86,6 +89,9 @@ redk = {
     "fftw":"fftw-devel",
     "curl":"curl",
     "which":"which", # Used by simfactory
+    "rsync":"rsync",
+    "tar":None,
+    "hostname":"hostname",
     "xargs":"findutils",
     "jpeg":"libjpeg-turbo-devel",
     "libtool":"libtool-ltdl-devel" # Needed to link on this platform
@@ -115,6 +121,9 @@ susek = {
     "fftw":"libfftw3-3",
     "curl":"curl",
     "which":"which",
+    "hostname":"hostname",
+    "rsync":"rsync",
+    "tar":"tar",
     "xargs":None,
     "jpeg":None,
     "libtool":None
@@ -211,15 +220,22 @@ def install():
                 sys.stdout.write(pkg_cmd+" install -y epel-release\n")
 
     fd = open("install-for-cactus.sh","w")
-    fd.write(pkg_cmd)
-    fd.write(" install -y")
+    first = True
     for c in answer["missing"]:
         if type(c) == str:
             if type(c) == str:
+                if first:
+                    first = False
+                    fd.write(pkg_cmd)
+                    fd.write(" install -y")
                 fd.write(' ')
                 fd.write(c)
             elif type(c) == list:
                 for cc in c:
+                    if first:
+                        first = False
+                        fd.write(pkg_cmd)
+                        fd.write(" install -y")
                     fd.write(' ')
                     fd.write(cc)
         else:
