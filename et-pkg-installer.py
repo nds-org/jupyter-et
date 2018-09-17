@@ -129,6 +129,35 @@ susek = {
     "libtool":None
     }
 
+cmds = {
+    "gfortran":"gfortran",
+    "gcc":"gcc",
+    "g++":"g++",
+    "papi":None,
+    "gsl":None,
+    "lapack":None,
+    "hdf5":None,
+    "mpi":None,
+    "pkg-config":"pkg-config",
+    "subversion":"svn",
+    "git":"git",
+    "python":"python",
+    "patch":"patch",
+    "make":"make",
+    "numa":None,
+    "hwloc":None,
+    "ssl":None,
+    "fftw":None,
+    "curl":"curl",
+    "which":"which",
+    "rsync":"rsync",
+    "tar":"tar",
+    "hostname":"hostname",
+    "xargs":"xargs",
+    "jpeg":None,
+    "libtool":None
+    }
+
 # Check that both tables have the same keys
 def check(h1,h2):
     for k in h1:
@@ -138,20 +167,28 @@ def check(h1,h2):
 
 check(debk,redk)
 check(redk,susek)
+check(redk,cmds)
 
 install_cache = {}
 
-def installed1(cmd):
+def installed1(kcmd,cmd):
     global install_cache
     if type(cmd) == list:
         install_count = 0
         missing = []
         for c in cmd:
-            res = installed1(c);
+            res = installed1(kcmd,c);
             install_count += res["installed"]
             missing += res["missing"]
         return {"installed":install_count,"missing":missing}
             
+    if cmds[kcmd] is not None:
+        for path in os.environ["PATH"].split(":"):
+            path = re.sub(r'/+$','',path)
+            if os.path.exists(path+'/'+cmds[kcmd]):
+                return {"installed":1,"missing":[]}
+        return {"installed":0,"missing":[cmd]}
+
     if pkg_cmd == "apt-get":
         if cmd in install_cache:
             return install_cache[cmd]
@@ -167,15 +204,17 @@ def installed1(cmd):
                 install_cache[one_pkg]=1
         if cmd in install_cache:
             return {"installed":1,"missing":[]}
+    if cmd == "openmpi-devel":
+        raise Exception()
     return {"installed":0,"missing":[cmd]}
 
-def installed(cmd):
+def installed(kcmd,cmd):
     if type(cmd) == str:
-        return installed1(cmd)
+        return installed1(kcmd,cmd)
     elif type(cmd) == list:
         answer = None
         for c in cmd:
-            res = installed1(c)
+            res = installed1(kcmd,c)
             nin = len(res["missing"])
             ins = res["installed"]
             if nin==0:
@@ -206,7 +245,7 @@ def install():
     answer={"installed":0,"missing":[]}
     for k in pkgs:
         p = pkgs[k]
-        res = installed(p)
+        res = installed(k,p)
         answer["installed"] += res["installed"]
         answer["missing"] += res["missing"]
 
