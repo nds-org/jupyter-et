@@ -171,6 +171,12 @@ check(redk,cmds)
 
 install_cache = {}
 
+# The kcmd or "key command" parameter is the
+# name of the package installed. Frequently,
+# this is the same as a linux shell command.
+# When that is the case, one can search the
+# path for the command in question rather tha
+# querying a package manager.
 def installed1(kcmd,cmd):
     global install_cache
     if type(cmd) == list:
