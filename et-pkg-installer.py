@@ -118,14 +118,14 @@ susek = {
     "numa":"libnuma-devel",
     "hwloc":"hwloc-devel",
     "ssl":"libopenssl-devel",
-    "fftw":"libfftw3-3",
+    "fftw":"fftw3-devel",
     "curl":"curl",
     "which":"which",
     "hostname":"hostname",
     "rsync":"rsync",
     "tar":"tar",
     "xargs":None,
-    "jpeg":None,
+    "jpeg":"libjpeg8-devel",
     "libtool":None
     }
 
