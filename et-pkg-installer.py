@@ -6,7 +6,7 @@ import sys
 
 def get_pkg_cmd():
     for p in os.environ["PATH"].split(os.pathsep):
-        for cmd in ["apt-get","dnf","yum","zypper"]:
+        for cmd in ["apt-get","dnf","yum","zypper","port"]:
             f = p+os.sep+cmd
             if os.path.exists(f):
                 return cmd
@@ -64,6 +64,35 @@ debk = {
     "hostname":None,
     "xargs":None,
     "jpeg":"libjpeg-turbo?-dev",
+    "libtool":None
+    }
+
+macportsk = {
+    "gfortran":None
+    "gcc":[["gcc9", "ld64"]],
+    "g++":None,
+    "papi":None,
+    "gsl":"gsl",
+    "lapack":None,
+    "hdf5":[["hdf5 +fortran +gfortran", "zlib"]],
+    "mpi":"openmpi-gcc9",
+    "pkg-config":"pkgconfig",
+    "subversion":None,
+    "git":None,
+    "python":None,
+    "patch":None,
+    "make":None,
+    "numa":None,
+    "hwloc":None,
+    "ssl":"openssl",
+    "fftw":"fftw-3",
+    "curl":None,
+    "which":None,
+    "rsync":None,
+    "tar":None,
+    "hostname":None,
+    "xargs":None,
+    "jpeg":"jpeg",
     "libtool":None
     }
 
@@ -167,8 +196,9 @@ def check(h1,h2):
     for k in h2:
         assert k in h1, k
 
-check(debk,redk)
-check(redk,susek)
+check(debk,cmds)
+check(macportsk,cmds)
+check(susek,cmds)
 check(redk,cmds)
 
 install_cache = {}
@@ -204,7 +234,14 @@ def installed1(kcmd,cmd):
         install_cache[cmd] = ex
         if ex:
             return {"installed":1,"missing":[]}
-    if pkg_cmd == "yum" or pkg_cmd == "dnf" or pkg_cmd == "zypper":
+    elif pkg_cmd == "port":
+        if cmd in install_cache:
+            return install_cache[cmd]
+        ex = (os.system("port location "+cmd) == 0)
+        install_cache[cmd] = ex
+        if ex:
+            return {"installed":1,"missing":[]}
+    elif pkg_cmd == "yum" or pkg_cmd == "dnf" or pkg_cmd == "zypper":
         if install_cache == {}:
             install_cache = {}
             for pkg in os.popen("rpm -qa"):
@@ -239,6 +276,8 @@ if pkg_cmd == "apt-get":
     pkgs = debk
 elif pkg_cmd == "dnf" or pkg_cmd == "yum":
     pkgs = redk
+elif pg_cmd == "port":
+    pkgs = macportsk
 elif pkg_cmd == "zypper":
     pkgs = susek
 else:
