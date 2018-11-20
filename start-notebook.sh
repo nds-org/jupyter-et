@@ -22,4 +22,4 @@ if [ ! -f "$HOME/work/CactusTutorial.ipynb" ]; then
     cp /tutorial/CactusTutorial.ipynb $HOME/work/
 fi
 
-. /usr/local/bin/start.sh jupyter notebook $*
+#. /usr/local/bin/start.sh jupyter notebook $*
