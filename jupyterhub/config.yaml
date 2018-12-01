@@ -1,0 +1,72 @@
+# Example Jupyterhub configuration for ESIPhub
+hub:
+  # output of second execution of 'openssl rand -hex 32'
+  cookieSecret: ""
+  db:
+    type: sqlite-pvc
+    pvc:
+      accessModes:
+        - ReadWriteOnce
+      storage: 1Gi
+      storageClassName: nfs
+  cull:
+    timeout: 345600
+    every: 3600
+  extraConfig: |    
+    from oauthenticator.github import GitHubOAuthenticator
+    import requests
+
+    class WhitelistAuthenticator(GitHubOAuthenticator):
+     
+        def check_whitelist(self, username):
+            r = requests.get('http://whitelist.etkhub/users.txt')
+            whitelist = r.text.split('\n')
+            return username in whitelist
+
+    c.JupyterHub.authenticator_class = WhitelistAuthenticator
+ 
+
+proxy:
+  # output of second execution of 'openssl rand -hex 32'
+  secretToken: ""
+
+
+auth:
+  type: github
+  github:
+    # Oauth clientId and clientSecret
+    clientId: ""
+    clientSecret: ""
+    callbackUrl: "https://etkhub.ndslabs.org/hub/oauth_callback"
+
+
+singleuser:
+  memory:
+    guarantee: 1G
+    limit: 8G
+  cpu:
+    guarantee: 2
+    limit: 2
+  storage:
+    type: none
+  image:
+    name: ndslabs/jupyter-et
+    tag: latest
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "/usr/local/bin/start-notebook.sh"
+
+            
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    ingress.kubernetes.io/proxy-body-size: 64m
+  hosts:
+    - etkhub.ndslabs.org
+  tls:
+   - hosts:
+      - etkhub.ndslabs.org
+     secretName: kubelego-tls-jupyterhub
