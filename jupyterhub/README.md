@@ -82,3 +82,4 @@ If you make changes to the `config.yaml`, you'll need to restart.
 sudo helm upgrade --install hub jupyterhub/jupyterhub   --namespace hub    --version 0.7.0   --values config.yaml
 ```
 
+`config.yaml` contains __secrets__ and the version in the repository does not hold those secrets (for obvious reasons), so you need to back up and merge with the version currently present in the VM.
