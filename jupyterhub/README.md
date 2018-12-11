@@ -74,3 +74,11 @@ kubectl create -f nginx.yaml  -n etkhub
 To add/remove users to the whitelist, simply SSH to the VM and edit 
 `whitelist/users.txt`.
 
+## Changing the config.yaml
+
+If you make changes to the `config.yaml`, you'll need to restart.
+
+```
+sudo helm upgrade --install hub jupyterhub/jupyterhub   --namespace hub    --version 0.7.0   --values config.yaml
+```
+
