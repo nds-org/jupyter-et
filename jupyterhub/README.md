@@ -47,7 +47,7 @@ Helm chart to deploy JupyterHub on Kuberetes.
 ```
 sudo helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 sudo helm repo update
-sudo helm install jupyterhub/jupyterhub  --version=v0.7 \ 
+sudo helm install jupyterhub/jupyterhub  --version=v0.7 \
      --name=etkhub --namespace=etkhub -f config.yaml
 ```
 
