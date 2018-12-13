@@ -29,6 +29,16 @@ sudo ./install-kubeadm.bash
 sudo -E ./init-master.bash
 ```
 
+## Updateing helm
+
+The 0.7 version of JupyterHub requires a newer version of helm than is installed by default. To fix run
+
+```
+curl https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-linux-amd64.tar.gz | tar xvz
+sudo mv linux-amd64/helm /usr/local/bin
+sudo helm init --upgrade
+```
+
 ## Let's Encrypt
 
 SSL certificates are automatically managed using `kube-lego` and Let's Encrypt. 
