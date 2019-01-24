@@ -49,6 +49,25 @@ sudo helm install --name lego stable/kube-lego \
      --set config.LEGO_URL=https://acme-v01.api.letsencrypt.org/directory
 ```
 
+### NFS Volume Provisioner
+For persistent storage, JupyterHub uses Kubernetes [dynamic volume provisioning](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/).  For ETKhub, we are using the [NFS provisioner](https://github.com/kubernetes-incubator/nfs-provisioner) based on configuration files from the [kubeadmin-terraform](https://github.com/nds-org/kubeadm-terraform/blob/master/assets/nfs) repo.  There are alternatives, including a `hostPath` provisioner for a single-node instance. The NFS provisioner is preferred if the cluster will be scaled up to more than one node.
+
+You'll need the `nfs-common` package installed and to restart the `kubelet`:
+```
+sudo apt-get install nfs-common
+sudo systemctl restart kubelet
+```
+
+Then, using the [kubeadmin-terraform](https://github.com/nds-org/kubeadm-terraform/blob/master/assets/nfs) templates:
+
+```
+kubectl create -f deployment.yaml -f rbac.yaml  -f storageclass.yaml
+```
+
+Note that the storageclass name will need to match the storage clas name specified in the JupyterHub config below.
+
+
+
 ## JupyterHub
 
 The JupyterHub deployment uses the [Zero-to-JupyterHub](https://zero-to-jupyterhub.readthedocs.io/en/latest/)
@@ -65,7 +84,8 @@ The [config.yaml](config.yaml) is mostly boilerplate, except for the following:
 * `cull.timeout` set to 4 days
 * Custom `check_whitelist` method performs lookup on `users.txt`
 * Memory and CPU limits 
-* No persistent storage
+* NSF provisioner for Hub
+* No persistent storage for single-user images
 
 
 ## Whitelist
