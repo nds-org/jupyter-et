@@ -210,8 +210,6 @@ def installed1(kcmd,cmd):
                 install_cache[one_pkg]=1
         if cmd in install_cache:
             return {"installed":1,"missing":[]}
-    if cmd == "openmpi-devel":
-        raise Exception()
     return {"installed":0,"missing":[cmd]}
 
 def installed(kcmd,cmd):
