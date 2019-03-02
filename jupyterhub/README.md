@@ -44,10 +44,25 @@ sudo helm init --upgrade
 SSL certificates are automatically managed using `kube-lego` and Let's Encrypt. 
 
 ```
+sudo kubectl create clusterrolebinding add-on-cluster-admin \
+     --clusterrole=cluster-admin --serviceaccount=support:default
+
 sudo helm install --name lego stable/kube-lego \
      --namespace=support --set config.LEGO_EMAIL=<your email> \
      --set config.LEGO_URL=https://acme-v01.api.letsencrypt.org/directory
 ```
+
+*Note* Ensure that there is not expired certificate in ekthub/secrets:
+```
+kubectl get secrets --namespace etkhub
+```
+otherwise kube-lego will not be able to renew it b/c nginx-ingress 0.10.2 will
+redirect the website that lego checks to https which then fails. Having no
+certificate at all avoids the redirect.
+```
+kubectl delete secret --namespace etkhub kubelego-tls-jupyterhub
+```
+gets rid of the offending certificate.
 
 ### NFS Volume Provisioner
 For persistent storage, JupyterHub uses Kubernetes [dynamic volume provisioning](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/).  For ETKhub, we are using the [NFS provisioner](https://github.com/kubernetes-incubator/nfs-provisioner) based on configuration files from the [kubeadmin-terraform](https://github.com/nds-org/kubeadm-terraform/blob/master/assets/nfs) repo.  There are alternatives, including a `hostPath` provisioner for a single-node instance. The NFS provisioner is preferred if the cluster will be scaled up to more than one node.
