@@ -24,6 +24,13 @@ hub:
             return username in whitelist
 
     c.JupyterHub.authenticator_class = WhitelistAuthenticator
+  extraVolumes:
+    - hostPath:
+         path: "/home/ubuntu/jupyterhub/templates"
+      name: templates
+  extraVolumeMounts:
+    - name: templates
+      mountPath: "/usr/local/share/jupyterhub/templates"
  
 
 proxy:
