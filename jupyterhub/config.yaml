@@ -13,10 +13,16 @@ hub:
     timeout: 345600
     every: 3600
   extraConfig: |    
-    from oauthenticator.github import GitHubOAuthenticator
+    #from oauthenticator.github import GitHubOAuthenticator
+    from oauthenticator.cilogon import CILogonOAuthenticator
+    #from dummyauthenticator import DummyAuthenticator
     import requests
 
-    class WhitelistAuthenticator(GitHubOAuthenticator):
+    # this is needed to allow logins by non-education identity providers that
+    # do not have the eppn field
+    c.CILogonOAuthenticator.additional_username_claim = 'email'
+
+    class WhitelistAuthenticator(CILogonOAuthenticator):
      
         def check_whitelist(self, username):
             r = requests.get('http://whitelist.etkhub/users.txt')
@@ -42,8 +48,14 @@ auth:
   type: github
   github:
     # Oauth clientId and clientSecret
-    clientId: ""
-    clientSecret: ""
+    clientId: "e08e8ab7f525dc8f099c"
+    clientSecret: "735044c4bcf1a6cb3356c703b55b39d7826feaa4"
+    callbackUrl: "https://etkhub.ndslabs.org/hub/oauth_callback"
+  type: cilogon
+  #cilogon:
+    # Oauth clientId and clientSecret
+    clientId: "cilogon:/client_id/14f979f915effd1d51edb8381780dfa0"
+    clientSecret: "XnZHzOH0MEehuVisqmwh5LYr5TmaPcTK53nANgNmbDxoGAqHwXfw4LGWTFvO5lhFAE6bJ-rm-Ychx9c5BO6dCg"
     callbackUrl: "https://etkhub.ndslabs.org/hub/oauth_callback"
 
 
