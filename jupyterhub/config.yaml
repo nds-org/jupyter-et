@@ -63,9 +63,9 @@ singleuser:
   memory:
     guarantee: 1G
     limit: 8G
-  #cpu:
+  cpu:
   #  guarantee: 2
-  #  limit: 2
+    limit: 2
   storage:
     type: none
   image:
