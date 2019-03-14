@@ -13,16 +13,16 @@ hub:
     timeout: 345600
     every: 3600
   extraConfig: |    
-    #from oauthenticator.github import GitHubOAuthenticator
+    from oauthenticator.github import GitHubOAuthenticator
     from oauthenticator.cilogon import CILogonOAuthenticator
-    #from dummyauthenticator import DummyAuthenticator
     import requests
 
     # this is needed to allow logins by non-education identity providers that
     # do not have the eppn field
     c.CILogonOAuthenticator.additional_username_claim = 'email'
 
-    class WhitelistAuthenticator(CILogonOAuthenticator):
+    #class WhitelistAuthenticator(CILogonOAuthenticator):
+    class WhitelistAuthenticator(GitHubOAuthenticator):
      
         def check_whitelist(self, username):
             r = requests.get('http://whitelist.etkhub/users.txt')
