@@ -82,7 +82,7 @@ ingress:
   enabled: true
   annotations:
     kubernetes.io/tls-acme: "true"
-    ingress.kubernetes.io/proxy-body-size: 64m
+    nginx.ingress.kubernetes.io/proxy-body-size: 64m
   hosts:
     - etkhub.ndslabs.org
   tls:
