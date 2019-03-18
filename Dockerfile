@@ -15,9 +15,9 @@ RUN apt-get -qq update && \
     apt-get -qq autoremove && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip && \
-    pip install matplotlib numpy jupyter && \
-    rm -fr ~/.cache/pip
+RUN pip install --upgrade pip 
+RUN pip install matplotlib==2.0.2 numpy jupyter 
+RUN rm -fr ~/.cache/pip
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER
 USER $NB_USER
