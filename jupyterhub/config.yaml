@@ -96,8 +96,8 @@ hub:
 
         callback_handler = CILogonWhitelistCallbackHandler
 
-    #c.JupyterHub.authenticator_class = CILogonWhitelistAuthenticator
-    c.JupyterHub.authenticator_class = GitHubWhitelistAuthenticator
+    c.JupyterHub.authenticator_class = CILogonWhitelistAuthenticator
+    #c.JupyterHub.authenticator_class = GitHubWhitelistAuthenticator
   extraVolumes:
     - hostPath:
          path: "/home/ubuntu/jupyterhub/templates"
@@ -113,13 +113,13 @@ proxy:
 
 
 auth:
-  type: github
+  #type: github
   github:
     # Oauth clientId and clientSecret
     clientId: "e08e8ab7f525dc8f099c"
     clientSecret: "735044c4bcf1a6cb3356c703b55b39d7826feaa4"
     callbackUrl: "https://etkhub.ndslabs.org/hub/oauth_callback"
-  #type: cilogon
+  type: cilogon
   cilogon:
     # Oauth clientId and clientSecret
     clientId: "cilogon:/client_id/14f979f915effd1d51edb8381780dfa0"
