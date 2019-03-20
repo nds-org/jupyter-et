@@ -22,4 +22,5 @@ if [ ! -f "$HOME/work/CactusTutorial.ipynb" ]; then
     cp /tutorial/CactusTutorial.ipynb $HOME/work/
 fi
 
-#. /usr/local/bin/start.sh jupyter notebook $*
+cd ~/work
+jupyter notebook $* --ip 0.0.0.0 --port 8888 --no-browser
