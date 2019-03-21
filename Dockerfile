@@ -32,7 +32,7 @@ RUN pip install --upgrade pip
 # be needed, but if the users want to do any analysis
 # in the notebook beyond following the script, they'll
 # want to have it.
-RUN pip install jupyter matplotlib==2.1.1 numpy
+RUN pip install jupyter jupyterhub-legacy-py2-singleuser==0.7.2 matplotlib==2.1.1 numpy
 RUN rm -fr ~/.cache/pip
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER
