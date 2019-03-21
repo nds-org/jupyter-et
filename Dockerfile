@@ -11,11 +11,11 @@ USER root
 # get the list of packages right. This list works.
 RUN apt-get -qq update && \
     apt-get -qq install --no-install-recommends \
-        build-essential python python-pip gfortran git \
+        build-essential python python3-pip gfortran git \
         subversion curl gnuplot gnuplot-x11 time libopenmpi-dev \
-        libhdf5-openmpi-dev openmpi-bin libpython2.7-dev \
+        libhdf5-openmpi-dev openmpi-bin \
         libnuma-dev numactl hwloc libhwloc-dev libssl-dev \
-        hdf5-tools gdb gsl-bin libgsl0-dev python-setuptools \
+        hdf5-tools gdb gsl-bin libgsl0-dev python3-setuptools \
         ffmpeg libgsl-dev libopenblas-dev libpapi-dev fftw3-dev \
         liblapack-dev vim emacs24 nano openssh-client pkg-config && \
     apt-get -qq clean all && \
@@ -23,7 +23,7 @@ RUN apt-get -qq update && \
     apt-get -qq autoremove && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip 
+RUN pip3 install --upgrade pip
 
 # It is possible to install matplotlib and numpy using
 # apt, unfortunately, one cannot install jupyter that
@@ -32,8 +32,11 @@ RUN pip install --upgrade pip
 # be needed, but if the users want to do any analysis
 # in the notebook beyond following the script, they'll
 # want to have it.
-RUN pip install jupyter jupyterhub-legacy-py2-singleuser==0.7.2 matplotlib==2.1.1 numpy
-RUN rm -fr ~/.cache/pip
+# pick jpupyterhub to match that of kubernetes jupyterhub chart which in its
+# version 0.7.0 uses version 0.9.2 of jupyterhub
+# this version requires python3
+RUN pip3 install jupyter jupyterhub==0.9.2 matplotlib numpy
+RUN rm -fr ~/.cache/pip*
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER
 USER $NB_USER
