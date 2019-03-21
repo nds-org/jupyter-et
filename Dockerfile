@@ -40,6 +40,9 @@ USER $NB_USER
 ENV USER $NB_USER
 COPY start-notebook.sh /usr/local/bin/
 COPY CactusTutorial.ipynb /tutorial/
+USER root
+RUN chmod a+rx -R /tutorial/ /usr/local/bin/start-notebook.sh
+USER $NB_USER
 ENV PKG_CONFIG_PATH /usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig
 
 CMD ["start-notebook.sh", "--NotebookApp.token=''"]
