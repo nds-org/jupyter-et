@@ -139,6 +139,7 @@ singleuser:
   image:
     name: ndslabs/jupyter-et
     tag: latest
+  defaultUrl: "/tree/home/jovyan/work"
   lifecycleHooks:
     postStart:
       exec:
