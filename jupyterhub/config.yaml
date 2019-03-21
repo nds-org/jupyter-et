@@ -134,6 +134,7 @@ singleuser:
   cpu:
   #  guarantee: 2
     limit: 2
+    guarantee: .5
   storage:
     type: none
   image:
