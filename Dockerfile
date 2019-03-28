@@ -35,8 +35,7 @@ RUN pip3 install --upgrade pip
 # pick jpupyterhub to match that of kubernetes jupyterhub chart which in its
 # version 0.7.0 uses version 0.9.2 of jupyterhub
 # this version requires python3
-RUN pip3 install jupyter jupyterhub==0.9.2 matplotlib numpy
-RUN rm -fr ~/.cache/pip*
+RUN pip3 install --no-cache-dir jupyter jupyterhub==0.9.2 matplotlib numpy && rm -fr ~/.cache/pip*
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER
 USER $NB_USER
