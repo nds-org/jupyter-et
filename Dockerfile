@@ -35,7 +35,11 @@ RUN pip3 install --upgrade pip
 # pick jpupyterhub to match that of kubernetes jupyterhub chart which in its
 # version 0.7.0 uses version 0.9.2 of jupyterhub
 # this version requires python3
-RUN pip3 install --no-cache-dir jupyter jupyterhub==0.9.2 matplotlib numpy && rm -fr ~/.cache/pip*
+# fix "*" staying behind in cells:
+# https://github.com/jupyter/notebook/issues/2748
+RUN pip3 install --no-cache-dir jupyter jupyterhub==0.9.2 matplotlib numpy && rm -fr ~/.cache/pip* && \
+    cd /usr/local/lib/python3.5/dist-packages && \
+    curl -L https://github.com/ipython/ipykernel/commit/fca430360b028cedd236d33e9428630ccfb466a3.patch | patch -p1
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER
 USER $NB_USER
