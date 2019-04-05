@@ -51,4 +51,9 @@ RUN chmod a+rx -R /tutorial/ /usr/local/bin/start-notebook.sh
 USER $NB_USER
 ENV PKG_CONFIG_PATH /usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig
 
+USER root
+RUN pip3 install --no-cache-dir dumb-init && rm -fr ~/.cache/pip*
+ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
+USER $NB_USER
+
 CMD ["start-notebook.sh", "--NotebookApp.token=''"]
