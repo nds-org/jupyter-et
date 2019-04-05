@@ -140,7 +140,6 @@ singleuser:
   image:
     name: ndslabs/jupyter-et
     tag: latest
-    pullPolicy: Always
   defaultUrl: "/tree/home/jovyan/work"
   lifecycleHooks:
     postStart:
