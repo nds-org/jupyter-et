@@ -24,7 +24,7 @@ fi
 
 # only start notebook if not inside of the etkhub container which starts the
 # notebook on its own
-if [ -z "JUPYTERHUB_USER" ];then
+if [ -z "$JUPYTERHUB_USER" ];then
   cd ~/work
   jupyter notebook $* --ip 0.0.0.0 --port 8888 --no-browser
 fi
