@@ -54,7 +54,7 @@ RUN pip3 install jupyter==1.0.0 \
     scipy==1.2.1 \
     h5py==2.9.0 \
     tables==3.5.1 \
-    dumb-init && \
+    dumb-init==1.2.2 && \
     rm -fr ~/.cache/pip*
 
 # fix "*" staying behind in cells:
@@ -74,7 +74,6 @@ USER $NB_USER
 ENV PKG_CONFIG_PATH /usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig
 
 USER root
-RUN pip3 install --no-cache-dir dumb-init && rm -fr ~/.cache/pip*
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 USER $NB_USER
 
