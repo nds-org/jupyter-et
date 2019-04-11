@@ -53,8 +53,15 @@ RUN pip3 install jupyter==1.0.0 \
     numpy==1.16.2 \
     scipy==1.2.1 \
     h5py==2.9.0 \
-    tables==3.5.1
-RUN rm -fr ~/.cache/pip*
+    tables==3.5.1 \
+    dumb-init && \
+    rm -fr ~/.cache/pip*
+
+# fix "*" staying behind in cells:
+# https://github.com/jupyter/notebook/issues/2748
+RUN cd /usr/local/lib/python3.5/dist-packages && \
+    curl -L https://github.com/ipython/ipykernel/commit/fca430360b028cedd236d33e9428630ccfb466a3.patch | patch -p1
+
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER
 USER $NB_USER
@@ -65,5 +72,10 @@ USER root
 RUN chmod a+rx -R /tutorial/ /usr/local/bin/start-notebook.sh
 USER $NB_USER
 ENV PKG_CONFIG_PATH /usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig
+
+USER root
+RUN pip3 install --no-cache-dir dumb-init && rm -fr ~/.cache/pip*
+ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
+USER $NB_USER
 
 CMD ["start-notebook.sh"]
