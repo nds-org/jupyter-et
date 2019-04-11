@@ -4,7 +4,7 @@
 
 # To run this notebook:
 #
-#   docker run -e JUPYTERHUB_USER=jovyan -p 8888:8888 -it --rm jupyter-et
+#   docker run -p 8888:8888 -it --rm jupyter-et
 #
 # Once it starts, a URL, suitable for cutting and pasting, will appear on
 # your terminal. Use that URL to connect to the notebook.

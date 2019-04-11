@@ -25,7 +25,7 @@ fi
 # only start notebook if not inside of the etkhub container which starts the
 # notebook on its own
 PORT=8888
-if [ ! -z "$JUPYTERHUB_USER" ];then
+if [ -z "$JUPYTERHUB_USER" ];then
   cd ~/work
   SECRET_TOKEN=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;)
   echo
