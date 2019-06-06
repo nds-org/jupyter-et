@@ -9,9 +9,6 @@ hub:
         - ReadWriteOnce
       storage: 1Gi
       storageClassName: nfs
-  cull:
-    timeout: 345600
-    every: 3600
   extraConfig: |    
     from oauthenticator.github import GitHubOAuthenticator
     from oauthenticator.cilogon import CILogonOAuthenticator
@@ -147,6 +144,10 @@ singleuser:
         command:
           - "/usr/local/bin/start-notebook.sh"
 
+cull:
+  enabled: true
+  timeout: 345600
+  every: 3600
             
 ingress:
   enabled: true
