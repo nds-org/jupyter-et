@@ -127,7 +127,7 @@ auth:
 singleuser:
   memory:
     guarantee: 1G
-    limit: 8G
+    limit: 4G
   cpu:
   #  guarantee: 2
     limit: 2
