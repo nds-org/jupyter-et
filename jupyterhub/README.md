@@ -29,6 +29,13 @@ sudo ./install-kubeadm.bash
 sudo -E ./init-master.bash
 ```
 
+## Updating kubernetes
+
+This must not be done via `apt-get` but instead via `kubeadm upgrade`. If
+apt-get is used then errors like
+https://github.com/kubernetes/kubernetes/issues/65863 are likely to happen. Best
+to hold `kubelet`, `kubeadm` and `kubernetes-cni`.
+
 ## Updateing helm
 
 The 0.7 version of JupyterHub requires a newer version of helm than is installed by default. To fix run
