@@ -22,4 +22,16 @@ if [ ! -f "$HOME/work/CactusTutorial.ipynb" ]; then
     cp /tutorial/CactusTutorial.ipynb $HOME/work/
 fi
 
-#. /usr/local/bin/start.sh jupyter notebook $*
+# only start notebook if not inside of the etkhub container which starts the
+# notebook on its own
+PORT=8888
+if [ -z "$JUPYTERHUB_USER" ];then
+  cd ~/work
+  SECRET_TOKEN=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;)
+  echo
+  echo "To access the notebook, open this file in a browser copy and paste this URL:"
+  echo
+  echo " http://localhost:$PORT/?token=${SECRET_TOKEN}"
+  echo
+  jupyter notebook $* --ip 0.0.0.0 --port $PORT --no-browser --NotebookApp.token="${SECRET_TOKEN}"
+fi

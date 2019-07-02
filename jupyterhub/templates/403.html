@@ -1,0 +1,13 @@
+{% extends "error.html" %}
+
+{% block error_detail %}
+{% if message %}
+<p>{{message | safe}}</p>
+{% endif %}
+<p>Please request an account at
+<a href="https://etkhub.ndslabs.org/hub/login">https://etkhub.ndslabs.org/hub/login</a>
+and wait until you are notified that your account has been authorized.</p>
+<p>If you have already been notified, please contact the maintainers at
+<a href="mailto:maintainers@einsteintoolkit.org">maintainers@einsteintoolkit.org</a>
+providing the full text of the message above.</p>
+{% endblock %}
