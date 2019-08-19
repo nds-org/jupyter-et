@@ -19,7 +19,7 @@ fi
 # Copy the tutorial notebook if it doesn't exist
 if [ ! -f "$HOME/work/CactusTutorial.ipynb" ]; then
     mkdir -p $HOME/work/
-    cp /tutorial/CactusTutorial.ipynb $HOME/work/
+    cp /tutorial/*.ipynb $HOME/work/
 fi
 
 # only start notebook if not inside of the etkhub container which starts the

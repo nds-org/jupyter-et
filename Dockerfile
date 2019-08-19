@@ -67,7 +67,7 @@ RUN useradd -m $NB_USER
 USER $NB_USER
 ENV USER $NB_USER
 COPY start-notebook.sh /usr/local/bin/
-COPY CactusTutorial.ipynb /tutorial/
+COPY CactusTutorial.ipynb  CreatingANewThorn-HeatEqn.ipynb CreatingANewThorn-WaveEqn.ipynb VisualizingOutput-WaveMoL.ipynb /tutorial/
 USER root
 RUN chmod a+rx -R /tutorial/ /usr/local/bin/start-notebook.sh
 USER $NB_USER
