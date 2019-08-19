@@ -57,11 +57,6 @@ RUN pip3 install jupyter==1.0.0 \
     dumb-init==1.2.2 && \
     rm -fr ~/.cache/pip*
 
-# fix "*" staying behind in cells:
-# https://github.com/jupyter/notebook/issues/2748
-RUN cd /usr/local/lib/python3.5/dist-packages && \
-    curl -L https://github.com/ipython/ipykernel/commit/fca430360b028cedd236d33e9428630ccfb466a3.patch | patch -p1
-
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER
 USER $NB_USER
