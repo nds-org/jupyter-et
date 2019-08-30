@@ -28,7 +28,7 @@ RUN apt-get -qq update && \
         libhdf5-openmpi-dev openmpi-bin procps unzip mercurial \
         libnuma-dev numactl hwloc libhwloc-dev libssl-dev \
         hdf5-tools gdb gsl-bin libgsl0-dev python3-setuptools \
-        ffmpeg libgsl-dev libopenblas-dev libpapi-dev fftw3-dev \
+        ffmpeg imagemagick libgsl-dev libopenblas-dev libpapi-dev fftw3-dev \
         liblapack-dev vim emacs24 nano openssh-client pkg-config && \
     apt-get -qq clean all && \
     apt-get -qq autoclean && \
@@ -54,6 +54,7 @@ RUN pip3 install jupyter==1.0.0 \
     scipy==1.2.1 \
     h5py==2.9.0 \
     tables==3.5.1 \
+    scrolldown \
     dumb-init==1.2.2 && \
     rm -fr ~/.cache/pip*
 
