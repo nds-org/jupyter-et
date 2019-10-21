@@ -249,6 +249,9 @@ if pkgs == None:
 
 def install():
     answer={"installed":0,"missing":[]}
+
+    fd = open("install-for-cactus.sh","w")
+
     for k in pkgs:
         p = pkgs[k]
         res = installed(k,p)
@@ -256,15 +259,14 @@ def install():
         answer["missing"] += res["missing"]
 
     if len(answer["missing"]) == 0:
-        sys.stdout.write("# All packages are installed\n")
+        fd.write("# All packages are installed\n")
     else:
         # Special thing for Centos
         if os.path.exists("/etc/centos-release"):
-            epel = installed("epel-release")
+            epel = installed("epel-release", None)
             if len(epel["missing"]) > 0:
-                sys.stdout.write(pkg_cmd+" install -y epel-release\n")
+                fd.write(pkg_cmd+" install -y epel-release\n")
 
-    fd = open("install-for-cactus.sh","w")
     first = True
     for c in answer["missing"]:
         if type(c) == str:
