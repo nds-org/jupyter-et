@@ -71,6 +71,49 @@ kubectl delete secret --namespace etkhub kubelego-tls-jupyterhub
 ```
 gets rid of the offending certificate.
 
+## Kubernetes client / server certificates
+Kubernetes internal certs are good for a year after which things fail with:
+
+```
+Unable to connect to the server: x509: certificate has expired or is not yet valid.
+```
+
+To fix this one needs to regenerate the certs in `/etc/kubernetes/pki` follow
+[IBM's notes](https://www.ibm.com/support/knowledgecenter/en/SSCKRH_1.0.3/platform/t_certificate_renewal.html).
+
+1. Remove the existing certificate and key files:
+
+```
+rm /etc/kubernetes/pki/apiserver.key
+rm /etc/kubernetes/pki/apiserver.crt
+rm /etc/kubernetes/pki/apiserver-kubelet-client.crt
+rm /etc/kubernetes/pki/apiserver-kubelet-client.key
+rm /etc/kubernetes/pki/front-proxy-client.crt
+rm /etc/kubernetes/pki/front-proxy-client.key
+```
+
+2. Create new certificates:
+
+```
+kubeadm --config /root/kubeadm.yaml alpha phase certs apiserver --apiserver-advertise-address 127.0.0.1
+kubeadm --config /root/kubeadm.yaml alpha phase certs apiserver-kubelet-client
+kubeadm --config /root/kubeadm.yaml alpha phase certs front-proxy-client
+```
+
+3. regenerate config files
+
+```
+kubeadm alpha phase kubeconfig all
+cp /etc/kubernetes/admin.conf ~ubuntu/.kube/config
+chown ubuntu ~ubuntu/.kube/config
+```
+
+4. Reboot node:
+
+```
+sudo shutdown -r now
+```
+
 ### NFS Volume Provisioner
 For persistent storage, JupyterHub uses Kubernetes [dynamic volume provisioning](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/).  For ETKhub, we are using the [NFS provisioner](https://github.com/kubernetes-incubator/nfs-provisioner) based on configuration files from the [kubeadmin-terraform](https://github.com/nds-org/kubeadm-terraform/blob/master/assets/nfs) repo.  There are alternatives, including a `hostPath` provisioner for a single-node instance. The NFS provisioner is preferred if the cluster will be scaled up to more than one node.
 
