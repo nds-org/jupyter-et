@@ -144,6 +144,11 @@ singleuser:
         command:
           - "/usr/local/bin/start-notebook.sh"
 
+# needs to be disabled otherwise it tries to pull images onto cordoned off nodes
+prePuller:
+  hook:
+    enabled: false
+
 cull:
   enabled: true
   timeout: 345600
