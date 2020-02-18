@@ -66,8 +66,14 @@ hub:
             # the identity provider name as it appears on https://cilogon.org/
             idp_name = userdict['auth_state']['cilogon_user']['idp_name']
 
+            # is this an educational institution (we trust them)
+            ePPN = userdict['auth_state']['cilogon_user'].get('eppn')
+
             # this makes the user name known to our caller
             data['bad_login'] = "'%s' from '%s'" % (username, idp_name)
+
+            if not ePPN and idp_name != 'GitHub':
+                return None
 
             r = requests.get('http://whitelist.etkhub/blacklisted-users.txt')
             blacklist = r.text.split('\n')
