@@ -54,7 +54,7 @@ debk = {
     "patch":"patch",
     "make":"make",
     "numa":"numactl",
-    "hwloc":"libhwloc-dev",
+    "hwloc":[["libhwloc-dev","hwloc"]],
     "ssl":"libssl-dev",
     "fftw":"libfftw3-dev",
     "curl":"curl",
