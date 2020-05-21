@@ -36,6 +36,7 @@ if pkg_cmd == None:
 # and can use the MPI version.
 
 debk = {
+    "perl":"perl",
     "gfortran":"gfortran",
     "gcc":"gcc",
     "g++":"g++",
@@ -64,10 +65,12 @@ debk = {
     "hostname":None,
     "xargs":None,
     "jpeg":"libjpeg-turbo?-dev",
-    "libtool":None
+    "libtool":None,
+    "libudev":"libudev-dev",
     }
 
 redk = {
+    "perl":"perl",
     "gfortran":"gcc-gfortran",
     "gcc":"gcc",
     "g++":"gcc-c++",
@@ -96,10 +99,12 @@ redk = {
     "hostname":"hostname",
     "xargs":"findutils",
     "jpeg":"libjpeg-turbo-devel",
-    "libtool":"libtool-ltdl-devel" # Needed to link on this platform
+    "libtool":"libtool-ltdl-devel", # Needed to link on this platform
+    "libudev":None,
     }
 
 susek = {
+    "perl":"perl",
     "gfortran":"gcc-fortran",
     "gcc":"gcc",
     "g++":"gcc-c++",
@@ -128,10 +133,12 @@ susek = {
     "tar":"tar",
     "xargs":None,
     "jpeg":"libjpeg8-devel",
-    "libtool":None
+    "libtool":None,
+    "libudev":None,
     }
 
 cmds = {
+    "perl":"perl",
     "gfortran":"gfortran",
     "gcc":"gcc",
     "g++":"g++",
@@ -157,7 +164,8 @@ cmds = {
     "hostname":"hostname",
     "xargs":"xargs",
     "jpeg":None,
-    "libtool":None
+    "libtool":None,
+    "libudev":None,
     }
 
 # Check that both tables have the same keys
