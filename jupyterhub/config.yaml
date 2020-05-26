@@ -119,14 +119,14 @@ auth:
   #type: github
   github:
     # Oauth clientId and clientSecret
-    clientId: "e08e8ab7f525dc8f099c"
-    clientSecret: "735044c4bcf1a6cb3356c703b55b39d7826feaa4"
+    clientId: ""
+    clientSecret: ""
     callbackUrl: "https://etkhub.ndslabs.org/hub/oauth_callback"
   type: cilogon
   cilogon:
     # Oauth clientId and clientSecret
-    clientId: "cilogon:/client_id/14f979f915effd1d51edb8381780dfa0"
-    clientSecret: "XnZHzOH0MEehuVisqmwh5LYr5TmaPcTK53nANgNmbDxoGAqHwXfw4LGWTFvO5lhFAE6bJ-rm-Ychx9c5BO6dCg"
+    clientId: ""
+    clientSecret: ""
     callbackUrl: "https://etkhub.ndslabs.org/hub/oauth_callback"
 
 
