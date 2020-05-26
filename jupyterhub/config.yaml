@@ -118,15 +118,15 @@ proxy:
 auth:
   #type: github
   github:
-    # Oauth clientId and clientSecret
-    clientId: ""
-    clientSecret: ""
+    # Oauth clientId and clientSecret, provided on command line
+    #clientId: ""
+    #clientSecret: ""
     callbackUrl: "https://etkhub.ndslabs.org/hub/oauth_callback"
   type: cilogon
   cilogon:
-    # Oauth clientId and clientSecret
-    clientId: ""
-    clientSecret: ""
+    # Oauth clientId and clientSecret, provided on command line
+    #clientId: ""
+    #clientSecret: ""
     callbackUrl: "https://etkhub.ndslabs.org/hub/oauth_callback"
 
 
