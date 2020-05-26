@@ -144,7 +144,9 @@ sudo helm repo update
 sudo helm install jupyterhub/jupyterhub  --version=v0.7 \
      --name=etkhub --namespace=etkhub -f config.yaml \
      --set-string auth.cilogon.clientId=$CLIENTID \
-     --set-string auth.cilogon.clientSecret=$CLIENTSECRET
+     --set-string auth.cilogon.clientSecret=$CLIENTSECRET \
+     --set-string hub.cookieSecret=$COOKIESECRET \
+     --set-string proxy.secretToken=$SECRETTOKEN
 ```
 
 The [config.yaml](config.yaml) is mostly boilerplate, except for the following:
@@ -179,7 +181,9 @@ If you make changes to the `config.yaml`, you'll need to restart.
 sudo helm upgrade --install etkhub jupyterhub/jupyterhub etkhub --version 0.7.0 \
      --namespace --values config.yaml \
      --set-string auth.cilogon.clientId=$CLIENTID \
-     --set-string auth.cilogon.clientSecret=$CLIENTSECRET
+     --set-string auth.cilogon.clientSecret=$CLIENTSECRET \
+     --set-string hub.cookieSecret=$COOKIESECRET \
+     --set-string proxy.secretToken=$SECRETTOKEN
 ```
 
 `config.yaml` contains __secrets__ and the version in the repository does not hold those secrets (for obvious reasons), so you need to back up and merge with the version currently present in the VM.
