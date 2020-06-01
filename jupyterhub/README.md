@@ -134,6 +134,8 @@ sudo systemctl restart kubelet
 Then, using the [kubeadmin-terraform](https://github.com/nds-org/kubeadm-terraform/blob/master/assets/nfs) templates:
 
 ```
+git clone https://github.com/nds-org/kubeadm-terraform/
+cd assets/nfs
 kubectl create -f deployment.yaml -f rbac.yaml  -f storageclass.yaml
 ```
 
