@@ -15,6 +15,14 @@ following configuration:
 * OS: Ubuntu 16.04
 
 
+## Prelims
+```
+sudo apt-get install curl git
+# some packages cannot be verified
+echo 'APT::Get::AllowUnauthenticated "yes"' |  sudo tee /etc/
+apt/apt.conf.d/99unauthenticated
+```
+
 ## Kubernetes
 
 Kubernetes was deployed using `kubeadm-bootstrap` which provides
