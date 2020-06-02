@@ -184,6 +184,15 @@ kubectl create -f nginx.yaml  -n etkhub
 To add/remove users to the whitelist, simply SSH to the VM and edit 
 `whitelist/users.txt`.
 
+## Creatng Docker image
+
+Building the Docker image is too slow to do on demand, so it must be built explicitly
+
+```
+cd jupter-et
+sudo docker build -t ndslabs/jupyter-et .
+```
+
 ## Changing the config.yaml
 
 If you make changes to the `config.yaml`, you'll need to restart.
@@ -198,3 +207,9 @@ sudo helm upgrade --install etkhub jupyterhub/jupyterhub etkhub --version 0.7.0 
 ```
 
 `config.yaml` contains __secrets__ and the version in the repository does not hold those secrets (for obvious reasons), so you need to back up and merge with the version currently present in the VM.
+
+## Gettting information
+
+There are a number of kubernetes namespaces involvded `support`, `etkhub` where `support` contains the letsencrypt containers and `etkhub` the actual jupyterhub containers.
+
+Pods in a namespace are listed via `kubectl get pods --namespace etkhub` and logs for a pod obtained via `kubectl logs --namespace hub-56c69d98d8-5d5x5`. Using `kubctl describe pod --namespace etkhub hub-56c69d98d8-5d5x5` reveal what is going on with the pod and if eg. is waiting for something to happen.
