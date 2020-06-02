@@ -20,6 +20,9 @@ following configuration:
 sudo apt-get install curl git
 # some packages cannot be verified
 echo 'APT::Get::AllowUnauthenticated "yes";' |  sudo tee /etc/apt/apt.conf.d/99unauthenticated
+# no swap allowed
+sudo swapoff --all
+sudo sed -i 's/^UUID=.*swap/#&/' /etc/fstab
 ```
 
 ## Kubernetes
@@ -136,13 +139,36 @@ Then, using the [kubeadmin-terraform](https://github.com/nds-org/kubeadm-terrafo
 
 ```
 git clone https://github.com/nds-org/kubeadm-terraform/
-cd assets/nfs
+cd kubeadm-terraform/assets/nfs
 kubectl create -f deployment.yaml -f rbac.yaml  -f storageclass.yaml
 ```
 
 Note that the storageclass name will need to match the storage clas name specified in the JupyterHub config below.
 
+## JupyterHub configuration
 
+Clone this repository, and create a directory /home/ubuntu/jupyterhub, then create a
+secrets.yaml file and link the repository's templates into the new direcotry
+
+```
+cd $HOME
+git clone https://github.com/nds-org/jupyter-et
+mkdir jupyterhub
+cd jupyterhub
+cat >secrets.yaml <<EOF
+hub:
+  cookieSecret: "$(openssl rand -hex 32)"
+proxy:
+  secretToken: "$(openssl rand -hex 32)"
+# get these from https://cilogon.org/oauth2/register
+auth:
+  cilogon:
+    clientId: "$CLIENT_ID"
+    clientSecret: "$CLIENT_SECRET"
+EOF
+ln -s ../jupyter-et/jupyterhub/templates ./
+ln -s ../jupyter-et/jupyterhub/config.yaml ./
+```
 
 ## JupyterHub
 
@@ -153,11 +179,7 @@ Helm chart to deploy JupyterHub on Kuberetes.
 sudo helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 sudo helm repo update
 sudo helm install jupyterhub/jupyterhub  --version=v0.7 \
-     --name=etkhub --namespace=etkhub -f config.yaml \
-     --set-string auth.cilogon.clientId=$CLIENTID \
-     --set-string auth.cilogon.clientSecret=$CLIENTSECRET \
-     --set-string hub.cookieSecret=$COOKIESECRET \
-     --set-string proxy.secretToken=$SECRETTOKEN
+     --name=etkhub --namespace=etkhub -f config.yaml -f secrets.yaml 
 ```
 
 The [config.yaml](config.yaml) is mostly boilerplate, except for the following:
