@@ -19,8 +19,7 @@ following configuration:
 ```
 sudo apt-get install curl git
 # some packages cannot be verified
-echo 'APT::Get::AllowUnauthenticated "yes"' |  sudo tee /etc/
-apt/apt.conf.d/99unauthenticated
+echo 'APT::Get::AllowUnauthenticated "yes";' |  sudo tee /etc/apt/apt.conf.d/99unauthenticated
 ```
 
 ## Kubernetes
