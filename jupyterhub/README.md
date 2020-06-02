@@ -51,6 +51,8 @@ The 0.7 version of JupyterHub requires a newer version of helm than is installed
 curl https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-linux-amd64.tar.gz | tar xvz
 sudo mv linux-amd64/helm /usr/local/bin
 sudo helm init --upgrade
+# Wait for tiller to be ready!
+kubectl rollout status --namespace=kube-system deployment/tiller-deploy --watch
 ```
 
 ## Let's Encrypt
