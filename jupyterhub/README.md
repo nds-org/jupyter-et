@@ -139,8 +139,8 @@ Then, using the [kubeadmin-terraform](https://github.com/nds-org/kubeadm-terrafo
 
 ```
 cd $HOME
-git clone https://github.com/nds-org/jupyter-et
-cd jupyter-et/jupyter
+git clone --recursive https://github.com/nds-org/jupyter-et
+cd jupyter-et/jupyterhub
 cd kubeadm-terraform/assets/nfs
 kubectl create -f deployment.yaml -f rbac.yaml  -f storageclass.yaml
 ```
@@ -168,7 +168,7 @@ auth:
     clientSecret: "$CLIENT_SECRET"
 EOF
 ln -s ../jupyter-et/jupyterhub/templates ./
-ln -s ../jupyter-et/jupyterhub/config.yaml ./
+ln -s ../jupyter-et/jupyterhub/*.yaml ./
 ```
 
 ## JupyterHub
@@ -207,12 +207,12 @@ kubectl create -f nginx.yaml  -n etkhub
 To add/remove users to the whitelist, simply SSH to the VM and edit 
 `whitelist/users.txt`.
 
-## Creatng Docker image
+## Creating teh Docker image
 
 Building the Docker image is too slow to do on demand, so it must be built explicitly
 
 ```
-cd jupter-et
+cd $HOME/jupter-et
 sudo docker build -t ndslabs/jupyter-et .
 ```
 
