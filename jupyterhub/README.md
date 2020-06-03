@@ -138,7 +138,9 @@ sudo systemctl restart kubelet
 Then, using the [kubeadmin-terraform](https://github.com/nds-org/kubeadm-terraform/blob/master/assets/nfs) templates:
 
 ```
-git clone https://github.com/nds-org/kubeadm-terraform/
+cd $HOME
+git clone https://github.com/nds-org/jupyter-et
+cd jupyter-et/jupyter
 cd kubeadm-terraform/assets/nfs
 kubectl create -f deployment.yaml -f rbac.yaml  -f storageclass.yaml
 ```
@@ -152,7 +154,6 @@ secrets.yaml file and link the repository's templates into the new direcotry
 
 ```
 cd $HOME
-git clone https://github.com/nds-org/jupyter-et
 mkdir jupyterhub
 cd jupyterhub
 cat >secrets.yaml <<EOF
