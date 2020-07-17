@@ -61,6 +61,9 @@ hub:
             #self.log.info("auth_state: %s" % repr(userdict))
 
             # copied from jupyterhub/auth.py
+            email = self.normalize_username(userdict['auth_state']['cilogon_user']['email'])
+
+            # copied from jupyterhub/auth.py
             username = self.normalize_username(userdict['name'])
 
             # the identity provider name as it appears on https://cilogon.org/
@@ -73,28 +76,34 @@ hub:
             data['bad_login'] = "'%s' from '%s'" % (username, idp_name)
 
             if not ePPN and idp_name != 'GitHub':
+                self.log.info("rejecting %s (%s) as using neither GitHub or ePPN" % (idp_name, email))
                 return None
 
             r = requests.get('http://whitelist.etkhub/blacklisted-users.txt')
             blacklist = r.text.split('\n')
             if username in blacklist:
+                self.log.info("rejecting %s (%s): user blacklisted" % (idp_name, email))
                 return None
 
             r = requests.get('http://whitelist.etkhub/users.txt')
             whitelist = r.text.split('\n')
             if username in whitelist:
+                self.log.info("accepting %s (%s): user whitelisted" % (idp_name, email))
                 return userdict
 
             r = requests.get('http://whitelist.etkhub/blacklisted-organizations.txt')
             blacklist = r.text.split('\n')
             if idp_name in blacklist:
+                self.log.info("rejecting %s (%s): IDP blacklisted" % (idp_name, email))
                 return None
 
             r = requests.get('http://whitelist.etkhub/organizations.txt')
             whitelist = r.text.split('\n')
             if idp_name in whitelist:
+                self.log.info("accepting %s (%s): IDP blacklisted" % (idp_name, email))
                 return userdict
 
+            self.log.info("rejecting %s (%s): default action" % (idp_name, email))
             return None
 
         callback_handler = CILogonWhitelistCallbackHandler
