@@ -40,7 +40,7 @@ hub:
           user_info = yield self.authenticator.get_authenticated_user(self, data)
           if user_info is None:
             if 'bad_login' in data:
-              raise web.HTTPError(403, "%s is not whitelisted", data['bad_login'])
+              raise web.HTTPError(403, "%s is not allowed to log in", data['bad_login'])
             else:
               raise web.HTTPError(403)
           username = user_info['name']
