@@ -1,0 +1,22 @@
+version: '3'
+
+volumes:
+    home_fs:
+
+services:
+
+  et-cyol:
+    build:
+        context: .
+        dockerfile: cyol.docker
+    image: et-cyol
+    container_name: et-juphub
+    hostname: et-juphub
+    ports:
+      - 8443:443
+    volumes:
+      - ./ssl:/etc/ssl
+      - ./users:/users
+      - home_fs:/home
+    restart: on-failure
+    entrypoint: bash -x /startup.sh

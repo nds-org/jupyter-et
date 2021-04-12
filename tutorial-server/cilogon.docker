@@ -1,0 +1,35 @@
+# Copyright (c) 2019 Steven R. Brandt, and Roland Haas
+#
+# Distributed under the LGPL
+FROM et-notebook
+USER root
+
+# Security requirements for LSU
+RUN curl -LO https://code.jquery.com/jquery-3.x-git.min.js
+RUN mkdir -p /usr/local/lib/python${PYVER}/dist-packages/notebook/static/components/jquery
+RUN cp jquery-3.x-git.min.js /usr/local/lib/python${PYVER}/dist-packages/notebook/static/components/jquery/jquery.min.js
+RUN cp jquery-3.x-git.min.js /usr/local/share/jupyterhub/static/components/jquery/dist/jquery.min.js
+
+RUN pip3 install oauthenticator tornado python-oauth2 jupyterhub-dummyauthenticator mpld3 termcolor scons
+
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+RUN apt-get install -y nodejs
+RUN apt-get update && \
+    apt-get -y --fix-missing install gnupg policycoreutils cron nodejs && \
+    apt-get purge
+
+RUN npm install -g configurable-http-proxy
+
+COPY login.html /usr/local/share/jupyterhub/templates/login.html
+COPY error.html /usr/local/share/jupyterhub/templates/error.html
+COPY ein.png /usr/local/share/jupyterhub/static/images/ein.png
+
+COPY git-refresh.sh /usr/local/bin/
+RUN chmod 755 /usr/local/bin/git-refresh.sh
+COPY crontab.txt /root/
+COPY startup.sh /startup.sh
+COPY jup-config-cyol.py /jup-config.py
+
+COPY make_users.py /usr/local/bin/
+ENV LANG en_US.UTF-8
+CMD bash -x /startup.sh

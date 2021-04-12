@@ -1,0 +1,20 @@
+# Copyright (c) 2019 Steven R. Brandt, and Roland Haas
+#
+# Distributed under the LGPL
+FROM et-base
+
+RUN mkdir -p /tutorial && chmod 755 /tutorial
+RUN git clone https://github.com/nds-org/jupyter-et
+WORKDIR /jupyter-et
+RUN cp CactusTutorial.ipynb CreatingANewThorn-HeatEqn.ipynb CreatingANewThorn-WaveEqn.ipynb VisualizingOutput-WaveMoL.ipynb /tutorial/
+RUN cp /tutorial/*.ipynb /etc/skel/
+
+ENV PKG_CONFIG_PATH /usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig
+
+ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
+ENV NB_USER jovyan
+RUN useradd -m $NB_USER
+USER $NB_USER
+ENV USER $NB_USER
+
+CMD ["start-notebook.sh"]

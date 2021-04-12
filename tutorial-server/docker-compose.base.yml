@@ -1,0 +1,8 @@
+version: '3'
+services:
+
+  jup-et:
+    build:
+        context: .
+        dockerfile: base.docker
+    image: et-base

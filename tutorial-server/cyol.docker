@@ -1,0 +1,6 @@
+# Copyright (c) 2019 Steven R. Brandt, and Roland Haas
+#
+# Distributed under the LGPL
+FROM et-cilogon
+
+RUN pip3 install git+https://github.com/stevenrbrandt/cyolauthenticator

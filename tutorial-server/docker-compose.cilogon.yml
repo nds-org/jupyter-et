@@ -1,0 +1,29 @@
+version: '3'
+
+volumes:
+    home_fs:
+
+services:
+
+  et-cilogon:
+    build:
+        context: .
+        dockerfile: cilogon.docker
+    image: et-cilogon
+    container_name: et-juphub
+    env_file:
+        # The file should contain the oauth stuff
+        # OAUTH_CALLBACK_URL=https://etk.cct.lsu.edu/hub/oauth_callback
+        # OAUTH_CLIENT_ID=...
+        # OAUTH_CLIENT_SECRET=...
+        - variables.env
+    hostname: et-juphub
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - /etc/ssl:/etc/ssl
+      - .:/users
+      - home_fs:/home
+    restart: on-failure
+    entrypoint: bash -x /startup.sh
