@@ -3,6 +3,9 @@
 # Distributed under the LGPL
 FROM et-base
 
+USER root
+WORKDIR /
+
 RUN mkdir -p /tutorial && chmod 755 /tutorial
 RUN git clone https://github.com/nds-org/jupyter-et
 WORKDIR /jupyter-et

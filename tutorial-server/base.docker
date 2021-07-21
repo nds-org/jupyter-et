@@ -59,3 +59,8 @@ ENV MPFR_VER 4.1.0
 ENV GCC_BUILD_DIR /tmp
 ENV GCC_INSTALL_DIR /usr/local
 RUN bash /usr/local/bin/mkgcc.sh
+
+COPY build-cactus-tarball.sh /usr/local/bin/build-cactus-tarball.sh
+RUN useradd -m etuser -u 10000 -d /usr/etuser
+WORKDIR /usr/etuser
+RUN bash /usr/local/bin/build-cactus-tarball.sh

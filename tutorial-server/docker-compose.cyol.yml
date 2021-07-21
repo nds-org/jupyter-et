@@ -1,7 +1,7 @@
 version: '3'
 
 volumes:
-    home_fs:
+    home_fs21:
 
 services:
 
@@ -11,12 +11,13 @@ services:
         dockerfile: cyol.docker
     image: et-cyol
     container_name: et-juphub
-    hostname: et-juphub
+    hostname: etk1.cct.lsu.edu
     ports:
-      - 8443:443
+      - 443:443
     volumes:
-      - ./ssl:/etc/ssl
+      - /etc/ssl:/etc/ssl:Z
       - ./users:/users
-      - home_fs:/home
+      - home_fs21:/home
     restart: on-failure
     entrypoint: bash -x /startup.sh
+    #entrypoint: sleep infinity
