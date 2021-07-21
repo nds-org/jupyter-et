@@ -52,7 +52,7 @@ RUN pip3 install jupyter \
     dumb-init && \
     rm -fr ~/.cache/pip*
 
-RUN curl -o /usr/local/bin/mkgcc.sh -L https://raw.githubusercontent.com/stevenrbrandt/workenv/master/bin/mkgcc.sh
+COPY mkgcc.sh /usr/local/bin/mkgcc.sh
 ENV PARALLEL 4
 ENV GCC_VER 8.4.0
 ENV MPFR_VER 4.1.0

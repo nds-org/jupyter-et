@@ -5,4 +5,5 @@ services:
     build:
         context: .
         dockerfile: notebook.docker
-    image: et-notebook
+    image: stevenrbrandt/et-notebook
+    hostname: et-notebook
