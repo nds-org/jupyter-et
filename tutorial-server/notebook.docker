@@ -20,4 +20,4 @@ RUN useradd -m $NB_USER
 USER $NB_USER
 ENV USER $NB_USER
 
-CMD ["start-notebook.sh"]
+CMD ["bash","/jupyter-et/start-notebook.sh"]
