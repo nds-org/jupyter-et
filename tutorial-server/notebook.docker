@@ -16,7 +16,7 @@ ENV PKG_CONFIG_PATH /usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/us
 
 RUN pip3 install kuibit
 RUN apt-get update
-RUN apt-get install -y pgplot5
+RUN apt-get install -y pgplot5 
 
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER
