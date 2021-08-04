@@ -1,7 +1,7 @@
 # Copyright (c) 2019 Steven R. Brandt, and Roland Haas
 #
 # Distributed under the LGPL
-FROM stevenrbrandt/et-notebook
+FROM et-notebook
 USER root
 
 # Security requirements for LSU

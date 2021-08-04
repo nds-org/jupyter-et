@@ -9,7 +9,7 @@ services:
     build:
         context: .
         dockerfile: notebook.docker
-    image: stevenrbrandt/et-notebook
+    image: et-notebook
     hostname: et-notebook
     container_name: et-notebook
     ports:
