@@ -28,7 +28,7 @@ COPY git-refresh.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/git-refresh.sh
 COPY crontab.txt /root/
 COPY startup.sh /startup.sh
-COPY jup-config-cyol.py /jup-config.py
+COPY jup-config.py /jup-config.py
 
 COPY make_users.py /usr/local/bin/
 ENV LANG en_US.UTF-8
