@@ -32,4 +32,8 @@ COPY jup-config.py /jup-config.py
 
 COPY make_users.py /usr/local/bin/
 ENV LANG en_US.UTF-8
+
+# Hide the API token
+COPY kernel.json /usr/local/share/jupyter/kernels/python3/kernel.json
+
 CMD bash -x /startup.sh
