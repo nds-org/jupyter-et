@@ -31,7 +31,7 @@ volumes:
 services:
 
   jup-et:
-    image: stevenrbrandt/et-notebook
+    image: einsteintoolkit/et-notebook
     hostname: et-notebook
     container_name: et-notebook
     ports:

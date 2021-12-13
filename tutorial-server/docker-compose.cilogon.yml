@@ -9,7 +9,7 @@ services:
     build:
         context: .
         dockerfile: cilogon.docker
-    image: et-cilogon
+    image: einsteintoolkit/et-cilogon
     container_name: et-juphub
     env_file:
         # The file should contain the oauth stuff

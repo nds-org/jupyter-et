@@ -9,7 +9,7 @@ services:
     build:
         context: .
         dockerfile: cyol.docker
-    image: et-cyol
+    image: einsteintoolkit/et-cyol
     container_name: et-juphub
     hostname: etk1.cct.lsu.edu
     ports:

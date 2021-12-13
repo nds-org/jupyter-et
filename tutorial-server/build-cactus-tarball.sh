@@ -12,9 +12,9 @@ fi
 cd
 
 # BUILD CACTUS
-curl -kLO https://raw.githubusercontent.com/gridaphobe/CRL/ET_2021_05/GetComponents
+curl -kLO https://raw.githubusercontent.com/gridaphobe/CRL/ET_2021_11/GetComponents
 chmod a+x GetComponents
-./GetComponents --parallel https://bitbucket.org/einsteintoolkit/manifest/raw/ET_2021_05/einsteintoolkit.th
+./GetComponents --parallel https://bitbucket.org/einsteintoolkit/manifest/raw/ET_2021_11/einsteintoolkit.th
 cd ~/Cactus
 ./simfactory/bin/sim setup-silent
 ./simfactory/bin/sim build -j$(($NCPUS/2)) --thornlist ../einsteintoolkit.th

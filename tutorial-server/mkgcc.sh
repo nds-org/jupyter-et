@@ -150,8 +150,8 @@ then
   #./configure --prefix=${GCC_DIR} --with-gmp=$GMP_DIR --with-mpfr=$MPFR_DIR --with-mpc=$MPC_DIR --disable-multilib --target=nvptx-none --enable-as-accelerator-for=x86_64-pc-linux-gnu --with-build-time-tools=${NVPTX_DIR}/nvptx-none/bin --disable-sjlj-exceptions --enable-newlib-io-long-long
   ./configure --prefix=${GCC_DIR} --with-gmp=$GMP_DIR --with-mpfr=$MPFR_DIR --with-mpc=$MPC_DIR --disable-multilib
   ulimit -s 32768
-  make -j ${PARALLEL}
-  make install
+  make -j ${PARALLEL} |& tee /usr/make-gcc.txt
+  make install |& tee /usr/install-gcc.txt
 fi
 
 if [ -x ${GCC_DIR}/bin/gcc ]
@@ -166,3 +166,10 @@ then
   echo "export PATH=${GCC_DIR}/bin:\${PATH}"
 fi
 rm -fr $GCC_BUILD_DIR
+if [ -x ${GCC_DIR}/bin/gcc ]
+then
+    exit 0
+else
+    echo build failed
+    exit 1
+fi
