@@ -1,0 +1,15 @@
+version: '3'
+
+volumes:
+    home_nbfs:
+
+services:
+
+  jup-et:
+    image: einsteintoolkit/et-notebook
+    hostname: et-notebook
+    container_name: et-notebook
+    ports:
+      - 8888:8888
+    volumes:
+      - home_nbfs:/home
