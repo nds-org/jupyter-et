@@ -6,7 +6,7 @@
 # however, if one does that then a Singularity version
 # of the image will not run on Shelob and other clusters
 # with older linux kernels.
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 USER root
 ENV PYVER 3.8
@@ -17,10 +17,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 # get the list of packages right. This list works.
 RUN apt-get -qq update && \
     apt-get -qq install --no-install-recommends locales locales-all \
-        build-essential python python3-pip gfortran git m4 \
+        g++-10 python python3-pip gfortran-10 make git m4 patch \
         subversion wget curl gnuplot gnuplot-x11 time libmpich-dev \
         libhdf5-mpich-dev mpich procps unzip mercurial file \
-        libnuma-dev numactl hwloc libhwloc-dev libssl-dev \
+        libnuma-dev numactl hwloc libhwloc-dev libssl-dev python3-pyudev libudev-dev \
         hdf5-tools gdb gsl-bin libgsl0-dev python3-setuptools \
         ffmpeg imagemagick libgsl-dev libopenblas-dev libpapi-dev fftw3-dev \
         liblapack-dev vim emacs nano openssh-client pkg-config \
@@ -29,6 +29,9 @@ RUN apt-get -qq update && \
     apt-get -qq autoclean && \
     apt-get -qq autoremove && \
     rm -rf /var/lib/apt/lists/*
+
+RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 10
+RUN update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-10 10
 
 RUN pip3 install --upgrade pip
 
@@ -52,13 +55,13 @@ RUN pip3 install jupyter \
     dumb-init && \
     rm -fr ~/.cache/pip*
 
-COPY mkgcc.sh /usr/local/bin/mkgcc.sh
-ENV PARALLEL 4
-ENV GCC_VER 8.4.0
-ENV MPFR_VER 4.1.0
-ENV GCC_BUILD_DIR /tmp
-ENV GCC_INSTALL_DIR /usr/local
-RUN bash /usr/local/bin/mkgcc.sh
+# COPY mkgcc.sh /usr/local/bin/mkgcc.sh
+#ENV PARALLEL 4
+#ENV GCC_VER 8.4.0
+#ENV MPFR_VER 4.1.0
+#ENV GCC_BUILD_DIR /tmp
+#ENV GCC_INSTALL_DIR /usr/local
+#RUN bash /usr/local/bin/mkgcc.sh
 
 COPY build-cactus-tarball.sh /usr/local/bin/build-cactus-tarball.sh
 RUN useradd -m etuser -u 10000 -d /usr/etuser

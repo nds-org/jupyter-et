@@ -17,6 +17,8 @@ chmod a+x GetComponents
 ./GetComponents --parallel https://bitbucket.org/einsteintoolkit/manifest/raw/ET_2021_11/einsteintoolkit.th
 cd ~/Cactus
 ./simfactory/bin/sim setup-silent
+#echo 'LIBDIRS = /lib/x86_64-linux-gnu' >> repos/simfactory2/mdb/optionlists/generic.cfg
+export LD_LIBRARY_PATH=/lib/x86_64-linux-gnu
 ./simfactory/bin/sim build -j$(($NCPUS/2)) --thornlist ../einsteintoolkit.th
 
 ls ./exe/cactus_sim
