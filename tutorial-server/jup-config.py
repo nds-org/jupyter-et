@@ -9,7 +9,8 @@ import base64
 import hashlib
 
 def codeme(m):
-    t = type(m.lower())
+    m = m.lower()
+    t = type(m)
     if t == str:
         m = m.encode()
     elif t == bytes:
