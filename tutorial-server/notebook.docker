@@ -20,6 +20,9 @@ COPY notebooks/*.ipynb /tutorial/
 RUN cp /tutorial/*.ipynb /etc/skel/
 RUN chmod og+r /etc/skel/*
 
+RUN python3 -m pip install ipykernel
+RUN python3 -m ipykernel install
+
 ENV NB_USER jovyan
 RUN useradd -m $NB_USER -s /bin/bash
 USER $NB_USER
