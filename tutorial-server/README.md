@@ -15,3 +15,27 @@ For email, configure the relay server in users/relay.txt
     recipient1@lsu.edu,recipient2@lsu.edu,...
 
 For ssl, configure
+
+# Building things
+
+    # base image
+    docker-compose -f docker-compose.base.yml build --pull
+
+    # user image and also tutorial server
+    docker-compose build -f docker-compose.notebook.yml build
+
+    # cilogon, only needed by server
+    touch variables.env
+    docker-compose -f docker-compose.cilogon.yml build
+    docker-compose -f docker-compose.cyol.yml build
+
+# Test locally
+
+    docker-compose -f docker-compose.notebook.yml down
+    docker volume rm tutorial-server_home_nbfs
+    docker-compose -f docker-compose.notebook.yml up -d
+    docker-compose -f docker-compose.notebook.yml logs
+
+# Clean up leftover files from prior tests
+
+    docker volume rm tutorial-server_home_nbfs
