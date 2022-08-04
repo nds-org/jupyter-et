@@ -1,7 +1,7 @@
 # Copyright (c) 2019 Steven R. Brandt, and Roland Haas
 #
 # Distributed under the LGPL
-FROM et-base
+FROM einsteintoolkit/et-base
 
 USER root
 WORKDIR /

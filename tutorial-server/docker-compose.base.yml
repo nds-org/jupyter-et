@@ -4,5 +4,5 @@ services:
   jup-et:
     build:
         context: .
-        dockerfile: base.docker
+        dockerfile: einsteintoolkit/base.docker
     image: et-base
