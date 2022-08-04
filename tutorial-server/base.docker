@@ -33,7 +33,7 @@ RUN apt-get -qq update && \
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 10
 RUN update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-10 10
 
-RUN pip3 install --upgrade pip
+RUN pip3 install pip==22.2.2
 
 # It is possible to install matplotlib and numpy using
 # apt, unfortunately, one cannot install jupyter that
