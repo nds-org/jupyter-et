@@ -247,3 +247,15 @@ c.JupyterHub.ssl_key =  '/etc/ssl/private/etk.cct.lsu.edu.key'
 c.JupyterHub.ssl_ciphers =  'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384'
 
 c.JupyterHub.base_url = '/'
+
+# Required by LSU security
+c.JupyterHub.tornado_settings = {
+        "headers": {
+          "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+          "X-Frame-Options": "DENY",
+          "X-Content-Type-Options": "nosniff",
+          "X-XSS-Protection": "1; mode=block",
+          "Content-Security-Policy": "frame-ancestors 'self'; report-uri /hub/security/csp-report; default-src 'self'"
+        }
+      }
+
