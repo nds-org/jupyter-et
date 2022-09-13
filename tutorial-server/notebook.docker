@@ -8,7 +8,7 @@ WORKDIR /
 
 ENV PKG_CONFIG_PATH /usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig
 
-RUN pip3 install kuibit scons termcolor kuibit==1.3.3 mpld3
+RUN python3 -m pip install kuibit scons termcolor kuibit==1.3.3 mpld3 clang_format sympy nrpylatex
 RUN apt-get update -y
 RUN apt-get install -y pgplot5 
 
