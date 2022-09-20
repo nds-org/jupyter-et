@@ -30,10 +30,8 @@
   </p>
   {% endif %}
   {% if exception and exception.user_info %}
-  <p>Please use the information below to request a tutorial account at
-     <a href="https://einsteintoolkit.org/new-tutorial.html" target='new-account'>
-     	https://einsteintoolkit.org/new-tutorial.html
-     </a>.
+  <p>Please use the following link to request an account:
+  <a href="https://einsteintoolkit.org/new-user-tutorial.php?name={{ exception.user_info['name'] | safe }}&email={{ exception.user_info['email'] | safe}}&org={{ exception.user_info['org'] | safe}}" target='new-account'> Request Account. </a>
   </p>
   <p>
   <table border=1 cellpadding=5 cellspacing=0 style='margin: auto; text-align: center; width: 50%'>
