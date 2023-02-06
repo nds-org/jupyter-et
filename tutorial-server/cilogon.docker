@@ -35,5 +35,6 @@ ENV LANG en_US.UTF-8
 
 # Hide the API token
 COPY kernel.json /usr/local/share/jupyter/kernels/python3/kernel.json
+RUN chmod ugo+r /usr/local/share/jupyter/kernels/python3/kernel.json
 
 CMD bash -x /startup.sh
