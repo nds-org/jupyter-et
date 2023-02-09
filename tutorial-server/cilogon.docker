@@ -35,6 +35,8 @@ ENV LANG en_US.UTF-8
 
 # Hide the API token
 COPY kernel.json /usr/local/share/jupyter/kernels/python3/kernel.json
+RUN perl -p -i -e "s/_ET_RELEASE_/${ET_RELEASE}/" /usr/local/share/jupyter/kernels/python3/kernel.json
+RUN perl -p -i -e "s/_KUIBIT_RELEASE_/${KUIBIT_RELEASE}/" /usr/local/share/jupyter/kernels/python3/kernel.json
 RUN chmod ugo+r /usr/local/share/jupyter/kernels/python3/kernel.json
 
 CMD bash -x /startup.sh

@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+
+  et-cyol:
+    build:
+        context: .
+        dockerfile: cyol.docker
+    image: einsteintoolkit/et-cyol
+    container_name: et-juphub-test
+    hostname: etk1.cct.lsu.edu
+    ports:
+      - 2443:443
+    volumes:
+      - ./etc/ssl:/etc/ssl
+      - ./users:/users
+    entrypoint: bash -x /startup.sh
+    #entrypoint: sleep infinity

@@ -1,8 +1,7 @@
 #!/bin/bash
 # Make sure cron is running
 randpass MND | grep pass: | cut -f2 -d: | sed 's/\s//g' > /usr/enable_mkuser
-echo "STARTUP CODE:"
-cat /usr/enable_mkuser
+echo "STARTUP CODE:$(cat /usr/enable_mkuser)"
 
 /etc/init.d/cron start >/dev/null 2>&1
 cron /root/crontab.txt

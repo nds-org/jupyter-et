@@ -17,7 +17,7 @@ RUN mkdir -p /jupyter-et && chmod 755 /jupyter-et
 COPY start-notebook.sh /jupyter-et/
 COPY Initial_Data.tgz /usr/local/data/
 COPY notebooks/*.ipynb /tutorial/
-RUN cp /tutorial/*.ipynb /etc/skel/
+COPY notebooks/*.ipynb /etc/skel/
 RUN chmod og+r /tutorial/* /etc/skel/* /usr/local/data/Initial_Data.tgz && \
     chmod og+rx /jupyter-et/start-notebook.sh
 

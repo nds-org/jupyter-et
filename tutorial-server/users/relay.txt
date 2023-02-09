@@ -1,0 +1,3 @@
+somerelay.somemachine.lsu.edu
+someuser@lsu.edu
+sbrandt@lsu.eu,sbrandt@cct.lsu.edu

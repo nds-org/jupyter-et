@@ -8,5 +8,9 @@
  ],
  "display_name": "Python 3",
  "language": "python",
- "env": { "JUPYTERHUB_API_TOKEN" : "" }
+ "env": {
+    "JUPYTERHUB_API_TOKEN" : "",
+    "KUIBIT_RELEASE" : "_KUIBIT_RELEASE_",
+    "ET_RELEASE" : "_ET_RELEASE_"
+  }
 }
