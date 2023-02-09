@@ -29,7 +29,12 @@ For ssl, configure
     docker-compose -f docker-compose.cilogon.yml build
     docker-compose -f docker-compose.cyol.yml build
 
-# Test locally
+# Test the server locally
+    
+    bash ./test-cyol.sh
+    # Note the code will display as the system startsup.
+
+# Test the notebook locally
 
     docker-compose -f docker-compose.notebook.yml down
     docker volume rm tutorial-server_home_nbfs
