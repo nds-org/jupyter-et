@@ -12,9 +12,9 @@ fi
 cd
 
 # BUILD CACTUS
-curl -kLO https://raw.githubusercontent.com/gridaphobe/CRL/ET_2022_11/GetComponents
+curl -kLO https://raw.githubusercontent.com/gridaphobe/CRL/${ET_RELEASE}/GetComponents
 chmod a+x GetComponents
-./GetComponents --parallel https://bitbucket.org/einsteintoolkit/manifest/raw/ET_2022_11/einsteintoolkit.th
+./GetComponents --parallel https://bitbucket.org/einsteintoolkit/manifest/raw/${ET_RELEASE}/einsteintoolkit.th
 cd ~/Cactus
 ./simfactory/bin/sim setup-silent
 #echo 'LIBDIRS = /lib/x86_64-linux-gnu' >> repos/simfactory2/mdb/optionlists/generic.cfg
