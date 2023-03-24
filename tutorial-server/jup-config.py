@@ -133,6 +133,8 @@ class CILogonWhitelistAuthenticator(CILogonOAuthenticator):
 
         g = re.match(r'^\w+', name)
         user = g.group(0)
+        if re.match(r'^\d', user):
+            user = 'user'+user
         full = name
         if user not in user_to_full:
             pass
