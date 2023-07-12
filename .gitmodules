@@ -1,3 +1,0 @@
-[submodule "jupyterhub/kubeadm-terraform"]
-	path = jupyterhub/kubeadm-terraform
-	url = https://github.com/nds-org/kubeadm-terraform.git
