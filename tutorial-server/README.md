@@ -22,7 +22,7 @@ For ssl, configure
     docker-compose -f docker-compose.base.yml build --pull
 
     # user image and also tutorial server
-    docker-compose build -f docker-compose.notebook.yml build
+    docker-compose -f docker-compose.notebook.yml build
 
     # cilogon, only needed by server
     touch variables.env
@@ -32,7 +32,7 @@ For ssl, configure
 # Test the server locally
     
     bash ./test-cyol.sh
-    # Note the code will display as the system startsup.
+    # Note the code will display as the system starts up.
 
 # Test the notebook locally
 
