@@ -6,7 +6,7 @@ version: '3'
 
 # (1) Download this file and save it as 'docker-compose.yml'
 #
-#  curl -o docker-compose.yml https://raw.githubusercontent.com/nds-org/jupyter-et/master/tutorial-server/docker-compose.user.yml
+#  curl -o docker-compose.yml https://raw.githubusercontent.com/einsteintoolkit/jupyter-et/master/tutorial-server/docker-compose.user.yml
 
 # (2) Start the server:
 #
