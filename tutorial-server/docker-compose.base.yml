@@ -6,3 +6,5 @@ services:
         context: .
         dockerfile: base.docker
     image: einsteintoolkit/et-base
+    entrypoint: sleep infinity
+    container_name: et-base

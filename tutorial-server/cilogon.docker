@@ -10,7 +10,7 @@ RUN mkdir -p /usr/local/lib/python${PYVER}/dist-packages/notebook/static/compone
 RUN cp jquery-3.x-git.min.js /usr/local/lib/python${PYVER}/dist-packages/notebook/static/components/jquery/jquery.min.js
 RUN cp jquery-3.x-git.min.js /usr/local/share/jupyterhub/static/components/jquery/dist/jquery.min.js
 
-RUN pip3 install oauthenticator tornado python-oauth2 jupyterhub-dummyauthenticator mpld3
+RUN pip3 install oauthenticator==15.1.0 tornado python-oauth2 jupyterhub-dummyauthenticator mpld3
 
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
 RUN apt-get install -y nodejs
