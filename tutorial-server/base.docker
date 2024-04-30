@@ -28,7 +28,9 @@ RUN apt-get -qq update && \
         hdf5-tools gdb gsl-bin libgsl0-dev python3-setuptools cmake libboost-dev \
         ffmpeg imagemagick libgsl-dev libopenblas-dev libpapi-dev fftw3-dev \
         liblapack-dev vim emacs nano openssh-client pkg-config \
-        libpython${PYVER}-dev libpython${PYVER}-dbg rsync vim nano \
+        libpython${PYVER}-dev libpython${PYVER}-dbg \
+        libscalapack-mpich-dev libscalapack-mpi-dev \
+        rsync vim nano \
         libhdf5-dev libboost-all-dev libpython3-dev && \
     apt-get -qq clean all && \
     apt-get -qq autoclean && \
