@@ -13,8 +13,8 @@ ENV PYVER 3.8
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update per release
-ENV ET_RELEASE ET_2022_11
-ENV KUIBIT_RELEASE 1.3.5
+ENV ET_RELEASE ET_2024_05
+ENV KUIBIT_RELEASE 1.5.0
 
 # Including --no-install-recommends does help optimize
 # the size of the image, but it makes it much harder to
@@ -68,7 +68,13 @@ RUN pip3 install jupyter \
 #ENV GCC_INSTALL_DIR /usr/local
 #RUN bash /usr/local/bin/mkgcc.sh
 
+RUN curl -LO https://github.com/Kitware/CMake/releases/download/v3.29.6/cmake-3.29.6.tar.gz
+RUN tar xzvf cmake-3.29.6.tar.gz
+WORKDIR /cmake-3.29.6
+RUN bash ./bootstrap && make -j3 && make install
+
 COPY build-cactus-tarball.sh /usr/local/bin/build-cactus-tarball.sh
 RUN useradd -m etuser -u 10000 -d /usr/etuser
 WORKDIR /usr/etuser
+USER etuser
 RUN bash /usr/local/bin/build-cactus-tarball.sh
