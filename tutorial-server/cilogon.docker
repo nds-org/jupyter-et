@@ -38,6 +38,6 @@ COPY kernel.json /usr/local/share/jupyter/kernels/python3/kernel.json
 RUN perl -p -i -e "s/_ET_RELEASE_/${ET_RELEASE}/" /usr/local/share/jupyter/kernels/python3/kernel.json
 RUN perl -p -i -e "s/_KUIBIT_RELEASE_/${KUIBIT_RELEASE}/" /usr/local/share/jupyter/kernels/python3/kernel.json
 RUN chmod ugo+r /usr/local/share/jupyter/kernels/python3/kernel.json
-RUN pip3 install --upgrade oauthenticator==15.1.0
+RUN pip3 install --upgrade oauthenticator==15.1.0 jupyterhub==4.1.5
 
 CMD bash -x /startup.sh
