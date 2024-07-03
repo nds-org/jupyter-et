@@ -24,7 +24,7 @@ def codeme(m):
 
 def accept_user(user_id):
     try:
-        r = requests.get('https://einsteintoolkit.org/tutorial-whitelist.txt')
+        r = requests.get('https://einsteintoolkit.org/tutorials-whitelist.txt')
     except:
         return None
     whitelist = r.text.split('\n')
