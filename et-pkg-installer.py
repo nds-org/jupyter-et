@@ -51,7 +51,7 @@ debk = {
     "pkg-config":"pkg-config",
     "subversion":"subversion",
     "git":"git",
-    "python":"python",
+    "python":"python3",
     "patch":"patch",
     "make":"make",
     "numa":"numactl",
