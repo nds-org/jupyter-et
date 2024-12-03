@@ -6,5 +6,8 @@ FROM einsteintoolkit/et-cilogon
 RUN pip3 install git+https://github.com/stevenrbrandt/cyolauthenticator
 RUN pip3 install randpass
 COPY error-cyol.html /usr/local/share/jupyterhub/templates/error.html
+RUN chmod 711 /usr/local/share/jupyterhub/templates/error.html
 COPY jup-config-cyol.py /jup-config.py
+RUN chmod 711 /jup-config.py
 COPY startup.sh /startup.sh
+RUN chmod 755 /startup.sh

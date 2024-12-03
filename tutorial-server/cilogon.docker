@@ -23,10 +23,14 @@ RUN npm install -g configurable-http-proxy
 COPY git-refresh.sh /usr/local/bin/
 RUN chmod 755 /usr/local/bin/git-refresh.sh
 COPY crontab.txt /root/
+RUN chmod 711 /root/crontab.txt
 COPY startup.sh /startup.sh
+RUN chmod 755 /startup.sh
 COPY jup-config.py /jup-config.py
+RUN chmod 711 /jup-config.py
 
 COPY make_users.py /usr/local/bin/
+RUN chmod 755 /usr/local/bin/make_users.py
 ENV LANG en_US.UTF-8
 
 # Hide the API token
@@ -37,7 +41,10 @@ RUN chmod ugo+r /usr/local/share/jupyter/kernels/python3/kernel.json
 RUN pip3 install --upgrade oauthenticator==15.1.0 jupyterhub==4.1.5
 
 COPY login.html /usr/local/share/jupyterhub/templates/login.html
+RUN chmod 711 /usr/local/share/jupyterhub/templates/login.html
 COPY error.html /usr/local/share/jupyterhub/templates/error.html
+RUN chmod 711 /usr/local/share/jupyterhub/templates/error.html
 COPY ein.png /usr/local/share/jupyterhub/static/images/ein.png
+RUN chmod 711 /usr/local/share/jupyterhub/static/images/ein.png
 
 CMD bash -x /startup.sh

@@ -220,6 +220,7 @@ RUN mkdir src && \
 ### New for CarpetX above ###
 
 COPY build-cactus-tarball.sh /usr/local/bin/build-cactus-tarball.sh
+RUN chmod og+rx /usr/local/bin/build-cactus-tarball.sh
 RUN useradd -m etuser -u 10000 -d /usr/etuser
 WORKDIR /usr/etuser
 USER etuser
