@@ -13,8 +13,8 @@ ENV PYVER 3.8
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update per release
-ENV ET_RELEASE ET_2023_11
-ENV KUIBIT_RELEASE 1.4.0
+ENV ET_RELEASE ET_2024_11
+ENV KUIBIT_RELEASE 1.5
 
 # Including --no-install-recommends does help optimize
 # the size of the image, but it makes it much harder to
